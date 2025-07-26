@@ -29,13 +29,28 @@ const About = () => {
                         muted
                         loop
                         playsInline
+                        autoPlay
+                        controls={false}
                         ref={(el) => {
                         if (el) {
+                            // Force play for iOS devices
+                            const playVideo = () => {
+                                const playPromise = el.play();
+                                if (playPromise !== undefined) {
+                                    playPromise.catch(() => {
+                                        // Auto-play was prevented
+                                        // Try setting muted to true and playing again
+                                        el.muted = true;
+                                        el.play().catch(e => console.log("Still cannot play video:", e));
+                                    });
+                                }
+                            };
+                            
                             const observer = new IntersectionObserver(
                             (entries) => {
                                 entries.forEach((entry) => {
                                 if (entry.isIntersecting) {
-                                    el.play();
+                                    playVideo();
                                 } else {
                                     el.pause();
                                 }
@@ -44,6 +59,9 @@ const About = () => {
                             { threshold: 0.3 }
                             );
                             observer.observe(el);
+                            
+                            // Additional attempt to play video on iOS
+                            playVideo();
                         }
                         }}
                     />
