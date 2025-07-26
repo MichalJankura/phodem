@@ -1,0 +1,407 @@
+@import "tailwindcss";
+
+/* Import Open Sans font */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('./fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf') format('truetype-variations');
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('./fonts/Open_Sans/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype-variations');
+  font-weight: 300 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Open Sans font classes */
+.open-sans-light {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.open-sans-regular {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.open-sans-medium {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.open-sans-semibold {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.open-sans-bold {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.open-sans-extrabold {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+/* Custom CSS variables for dark mode support */
+:root {
+  --color-primary: #000000;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F0F1F3;
+  --color-secondary-foreground: #020817;
+  --color-accent: #6D7074;
+  --color-accent-foreground: #020817;
+  --color-background: #FAFAFB;
+  --color-foreground: #020817;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #020817;
+  --color-muted: #F0F1F3;
+  --color-muted-foreground: #6D7074;
+  --color-border: #E0E0E0;
+  --color-input: #E0E0E0;
+  --color-ring: #0D6EFD;
+}
+
+.dark {
+  --color-primary: #0D6EFD;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #1E1E2C;
+  --color-secondary-foreground: #FAFAFB;
+  --color-accent: #6D7074;
+  --color-accent-foreground: #FAFAFB;
+  --color-background: #020817;
+  --color-foreground: #FAFAFB;
+  --color-card: #121212;
+  --color-card-foreground: #FAFAFB;
+  --color-muted: #1E1E2C;
+  --color-muted-foreground: #6D7074;
+  --color-border: #3C3C3C;
+  --color-input: #3C3C3C;
+  --color-ring: #0D6EFD;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.App {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom animations for smooth transitions */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes delayed-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-fade-in-left {
+  opacity: 0;
+  animation: fade-in-left 0.8s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  opacity: 0;
+  animation: fade-in-right 0.8s ease-out forwards;
+}
+
+.animate-fade-in-scale {
+  opacity: 0;
+  animation: fade-in-scale 0.8s ease-out forwards;
+}
+
+.animate-delayed-fade-in {
+  opacity: 0;
+  animation: delayed-fade-in 1.2s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out;
+}
+
+.animate-bounce-in {
+  opacity: 0;
+  animation: bounce-in 0.8s ease-out forwards;
+}
+
+/* Continuous scroll animations */
+.scroll-fade-in {
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-in:not(.visible) {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Staggered animations for children */
+.animate-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.animate-stagger.visible > *:nth-child(1) { animation: fade-in-up 0.6s ease-out 0.1s forwards; }
+.animate-stagger.visible > *:nth-child(2) { animation: fade-in-up 0.6s ease-out 0.2s forwards; }
+.animate-stagger.visible > *:nth-child(3) { animation: fade-in-up 0.6s ease-out 0.3s forwards; }
+.animate-stagger.visible > *:nth-child(4) { animation: fade-in-up 0.6s ease-out 0.4s forwards; }
+.animate-stagger.visible > *:nth-child(5) { animation: fade-in-up 0.6s ease-out 0.5s forwards; }
+.animate-stagger.visible > *:nth-child(6) { animation: fade-in-up 0.6s ease-out 0.6s forwards; }
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for horizontal scrolling containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Optimize rendering performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hardware acceleration for transforms */
+.transform {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+}
+
+/* Additional optimizations for coffee section */
+.coffee-card {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  perspective: 1000px;
+}
+
+.coffee-scroll-container {
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.coffee-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.coffee-card-item {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* Optimize transitions */
+.transition-optimized {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* GPU acceleration for smooth animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Contact section custom classes */
+.text-dark {
+  color: rgb(31, 41, 55);
+}
+
+.text-body-color {
+  color: rgb(107, 114, 128);
+}
+
+.dark .text-dark {
+  color: rgb(229, 231, 235);
+}
+
+.dark .text-dark-6 {
+  color: rgb(156, 163, 175);
+}
+
+.dark .bg-dark {
+  background-color: rgb(31, 41, 55);
+}
+
+.dark .bg-dark-2 {
+  background-color: rgb(55, 65, 81);
+}
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Override primary color for contact section compatibility */
+.text-primary {
+  color: #3056D3;
+}
+
+.bg-primary\/5 {
+  background-color: rgba(48, 86, 211, 0.05);
+}
