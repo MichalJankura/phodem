@@ -1,6 +1,6 @@
 import React from "react";
 
-const FIREFLY_COUNT = 70;
+const FIREFLY_COUNT = 40;
 
 const getRandom = (min: number, max: number) =>
     Math.random() * (max - min) + min;
