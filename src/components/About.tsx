@@ -1,5 +1,7 @@
 import igvideo from '../assets/igvideo.mp4';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import FlipWords from './FlipWords';
+import bgabout from '/about-bg.png';
 
 const About = () => {
     const { elementRef: sectionRef } = useScrollAnimation({
@@ -49,26 +51,15 @@ const About = () => {
                 </div>
                 </div>
                 
-                {/* Right side - Text */}
+                {/* Right side - FlipWords */}
                 <div 
-                    className="w-full md:w-1/2 px-4 md:px-8 py-16"
+                    className="w-full md:w-1/2 px-2 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16 flex flex-col items-center justify-center min-h-[400px] sm:min-h-[500px] md:min-h-[600px]"
+                    style={{ backgroundImage: `url(${bgabout})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 >
-                  <h2 className="text-3xl text-white mb-6 font-extrabold text-center">O nás</h2>
-                  <p className="text-white mb-4 font-medium text-2xl text-center">
-                    Vitajte v našej autentickej ázijskej reštaurácii v srdci Starej Ľubovne. Naša reštaurácia prináša pravé chute Ázie priamo do vašich tanierov, kde sa stretáva tradícia s moderným kulinárskym umením.
-                  </p>
-                  <p className="text-white mb-4 font-medium text-2xl text-center">
-                    Špecializujeme sa na tradičné ázijské jedlá pripravované podľa pôvodných receptúr a výhradne z čerstvých, poctivo vyberaných surovín. Každé jedlo je pripravené s láskou a vášňou pre ázijskú gastronómiu, ktorú naši šéfkuchári zdokonaľovali roky.
-                  </p>
-                  <p className="text-white mb-4 font-medium text-2xl text-center">
-                    Naša kuchyňa majstrovsky kombinuje starobylé ázijské postupy s modernými technikami, aby vytvorila dokonalý kulinársky zážitok pre všetkých milovníkov exotických chutí. V našom menu nájdete obľúbené jedlá z rôznych kútov Ázie - od pikantných thajských špecialít, cez delikátne japonské sushi, až po bohaté čínske pokrmy a aromatické vietnamské polievky.
-                  </p>
-                  <p className="text-white mb-4 font-medium text-2xl text-center">
-                    Okrem vynikajúceho jedla ponúkame aj príjemné prostredie inšpirované ázijskou kultúrou, kde si môžete vychutnať svoje jedlo v pokojnej atmosfére. Náš profesionálny a priateľský personál sa postará o to, aby váš gastronomický zážitok bol nezabudnuteľný.
-                  </p>
-                  <p className="text-white font-medium text-2xl text-center">
-                    Príďte nás navštíviť a vydajte sa na fascinujúcu chuťovú cestu naprieč Áziou bez toho, aby ste museli opustiť Starú Ľubovňu. Tešíme sa na vašu návštevu a možnosť predstaviť vám to najlepšie z ázijskej kuchyne!
-                  </p>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl text-white mb-4 sm:mb-6 md:mb-8 font-extrabold text-center">O nás</h2>
+                  <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-2xl">
+                    <FlipWords />
+                  </div>
                 </div>
             </div>
         </section>
