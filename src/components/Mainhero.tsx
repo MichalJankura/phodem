@@ -28,7 +28,7 @@ const Mainhero = () => {
       />
       {/* Call to action buttons */}
       
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex">
+      <div className="absolute bottom-16 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex">
         <button 
           className={`px-6 py-3 rounded-l-lg transition-colors duration-300 border-r border-gray-400 ${
             hoveredButton === 'main' 
@@ -54,7 +54,7 @@ const Mainhero = () => {
           } active:bg-gray-900 active:text-white`}
           aria-label="Denné menu"
           onClick={() => window.open('/daily01.pdf', '_blank')}
-          onMouseEnter={() => setHoveredButton('daily')}
+          onMouseEnter={() => setHoveredButton('daily')}y
           onMouseLeave={() => setHoveredButton(null)}
         >
           Denné menu
