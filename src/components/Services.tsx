@@ -4,27 +4,27 @@ import React from "react";
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const cards = [
-    {
-        title: "Reštaurácia",
-        image: "/menu.jpg", // nahraď svojím obrázkom
-        desc: "Už viac ako 10 rokov Vám prinášame pravé vietnamské a ázijské špeciality pripravené z čerstvých surovín, tradičných rezancov, polievok a wok jedál.",
-        bg: "bg-yellow-200",
-        text: "text-neutral-900",
-    },
-    {
-        title: "Oslavy",
-        image: "/restaurant.png",
-        desc: "Plánujete rodinnú oslavu, svadbu, firemný večierok alebo narodeniny? Naša reštaurácia a salónik je ideálnym miestom na vaše ázijské oslavy s originálnou kuchyňou.",
-        bg: "bg-neutral-800",
-        text: "text-white",
-    },
-    {
-        title: "Denné menu",
-        image: "/denne.jpg",
-        desc: "Každý pracovný deň ponúkame pestré ázijské denné menu a rýchly rozvoz teplých jedál priamo do vašej firmy alebo domov.",
-        bg: "bg-yellow-100",
-        text: "text-neutral-900",
-    },
+  {
+    title: "Reštaurácia",
+    image: "/menu.jpg", // nahraď svojím obrázkom
+    desc: "Už viac ako 10 rokov Vám prinášame pravé vietnamské a ázijské špeciality pripravené z čerstvých surovín, tradičných rezancov, polievok a wok jedál.",
+    bg: "bg-[#FF8622]", // Changed from bg-#FF8622 to a Tailwind orange color
+    text: "text-neutral-900",
+  },
+  {
+    title: "Oslavy",
+    image: "/restaurant.png",
+    desc: "Plánujete rodinnú oslavu, svadbu, firemný večierok alebo narodeniny? Naša reštaurácia a salónik je ideálnym miestom na vaše ázijské oslavy s originálnou kuchyňou.",
+    bg: "bg-neutral-800",
+    text: "text-white",
+  },
+  {
+    title: "Denné menu",
+    image: "/denne.jpg",
+    desc: "Každý pracovný deň ponúkame pestré ázijské denné menu a rýchly rozvoz teplých jedál priamo do vašej firmy alebo domov.",
+    bg: "bg-[#FF8622]",
+    text: "text-neutral-900",
+  },
 ];
 
 const Services: React.FC = () => {
