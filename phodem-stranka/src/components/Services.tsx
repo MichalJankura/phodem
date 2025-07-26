@@ -29,8 +29,8 @@ const cards = [
 
 const Services: React.FC = () => {
   const { elementRef: sectionRef } = useScrollAnimation<HTMLDivElement>({
-    threshold: 0.1,
-    animationClass: 'animate-fade-in-up'
+    threshold: 0.2,
+    animationClass: 'animate-fade-in-scale'
   });
 
   return (
@@ -39,11 +39,10 @@ const Services: React.FC = () => {
       id="services"
       ref={sectionRef}
     >
-      {cards.map((card, idx) => {
+      {cards.map((card) => {
         const { elementRef: cardRef } = useScrollAnimation<HTMLDivElement>({
-          threshold: 0.2,
-          animationClass: 'animate-fade-in-scale',
-          delay: idx * 200
+          // threshold: 0.2,
+          // animationClass: 'animate-fade-in-scale',
         });
 
         return (

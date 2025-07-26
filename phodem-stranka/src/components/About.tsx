@@ -7,18 +7,6 @@ const About = () => {
         animationClass: 'animate-fade-in-up'
     });
 
-    const { elementRef: videoRef } = useScrollAnimation({
-        threshold: 0.3,
-        animationClass: 'animate-fade-in-left',
-        delay: 200
-    });
-
-    const { elementRef: textRef } = useScrollAnimation({
-        threshold: 0.2,
-        animationClass: 'animate-stagger',
-        delay: 400
-    });
-
     return (
         <section 
             id="about" 

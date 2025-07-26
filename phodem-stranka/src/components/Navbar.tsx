@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
       name: 'Menu', 
       dropdown: true,
       items: [
-        { name: 'Hlavné menu', href: '/src/assets/phodem_menu.pdf', external: true },
+        { name: 'Hlavné menu', href: '/phodem_menu.pdf', external: true },
         { name: 'Denné menu', href: '#daily-menu' },
       ]
     },

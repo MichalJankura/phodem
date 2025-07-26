@@ -4,22 +4,16 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Contact: React.FC = () => {
   const [currentDay, setCurrentDay] = useState("");
+  
+  const { elementRef: sectionRef } = useScrollAnimation<HTMLDivElement>({
+    threshold: 0.2,
+    animationClass: 'animate-fade-in-scale'
+  });
 
   useEffect(() => {
     const days = ["Nedeľa", "Pondelok", "Utorok", "Streda", "Štvrtok", "Piatok", "Sobota"];
     setCurrentDay(days[new Date().getDay()]);
   }, []);
-
-  const { elementRef: sectionRef } = useScrollAnimation<HTMLElement>({
-    threshold: 0.1,
-    animationClass: 'animate-fade-in-up'
-  });
-
-  const { elementRef: containerRef } = useScrollAnimation<HTMLDivElement>({
-    threshold: 0.2,
-    animationClass: 'animate-stagger',
-    delay: 300
-  });
 
   const businessHours = [
     { day: "Pondelok", hours: "10:00 - 21:00" },
@@ -31,8 +25,27 @@ const Contact: React.FC = () => {
     { day: "Nedeľa", hours: "11:00 - 21:00" }
   ];
 
+  const { elementRef: contactDetailsRef } = useScrollAnimation<HTMLDivElement>({
+    // threshold: 0.2,
+    // animationClass: 'animate-fade-in-scale',
+  });
+
+  const { elementRef: hoursRef } = useScrollAnimation<HTMLDivElement>({
+    // threshold: 0.2,
+    // animationClass: 'animate-fade-in-scale',
+  });
+
+  const { elementRef: mapRef } = useScrollAnimation<HTMLDivElement>({
+    // threshold: 0.2,
+    // animationClass: 'animate-fade-in-scale',
+  });
+
     return (
-        <section id="contact" className="bg-white dark:bg-black relative w-full min-h-screen flex items-center justify-center py-8 md:py-16 font-sans">
+        <section 
+          id="contact" 
+          className="bg-white dark:bg-black relative w-full min-h-screen flex items-center justify-center py-8 md:py-16 font-sans scroll-fade-in"
+          ref={sectionRef}
+        >
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <img 
@@ -44,7 +57,7 @@ const Contact: React.FC = () => {
             <div className="relative z-10 container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Contact Details */}
-          <div className="bg-yellow-200 p-10 rounded-lg shadow-lg">
+          <div className="bg-yellow-200 p-10 rounded-lg shadow-lg" ref={contactDetailsRef}>
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-neutral-900 mb-6">Phố đêm</h2>
             
             <div className="space-y-4">
@@ -72,7 +85,7 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Opening Hours */}
-          <div className="bg-yellow-100 p-10 rounded-lg shadow-lg">
+          <div className="bg-yellow-100 p-10 rounded-lg shadow-lg" ref={hoursRef}>
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-neutral-900 mb-6">Otváracie hodiny</h2>
             <div className="space-y-2">
               {businessHours.map((schedule) => (
@@ -90,7 +103,7 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Map */}
-          <div className="bg-neutral-800 p-10 rounded-lg shadow-lg lg:col-span-1">
+          <div className="bg-neutral-800 p-10 rounded-lg shadow-lg lg:col-span-1" ref={mapRef}>
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6">Kde nás nájdete</h2>
             <div className="relative h-[400px] rounded-lg overflow-hidden">
               <iframe
