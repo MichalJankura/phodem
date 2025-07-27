@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Contact: React.FC = () => {
@@ -30,81 +30,90 @@ const Contact: React.FC = () => {
     // animationClass: 'animate-fade-in-scale',
   });
 
-  const { elementRef: hoursRef } = useScrollAnimation<HTMLDivElement>({
-    // threshold: 0.2,
-    // animationClass: 'animate-fade-in-scale',
-  });
-
   const { elementRef: mapRef } = useScrollAnimation<HTMLDivElement>({
     // threshold: 0.2,
     // animationClass: 'animate-fade-in-scale',
   });
 
-    return (
-        <section 
-          id="contact" 
-          className="bg-white dark:bg-black relative w-full min-h-screen flex items-center justify-center py-8 md:py-16 font-sans scroll-fade-in"
-          ref={sectionRef}
-        >
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-                <img 
-                    src="/contact-bg.png" 
-                    alt="Contact Background" 
-                    className="w-full h-full object-cover object-center"
-                />
-            </div>
-            <div className="relative z-10 container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {/* Contact Details */}
-          <div className="bg-yellow-200 p-10 rounded-lg shadow-lg" ref={contactDetailsRef}>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-neutral-900 mb-6">Phố đêm</h2>
+  return (
+    <section 
+      id="contact" 
+      className="relative w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8 font-sans scroll-fade-in"
+      ref={sectionRef}
+    >
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 bg-black ">
+        <img 
+          src="/contact-bg.png" 
+          alt="Contact Background" 
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+      <div className="absolute inset-0 bg-black/50"></div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto flex justify-center items-center h-full min-h-[80vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-5xl">
+          {/* Contact Information Card */}
+          <div 
+            className="backdrop-blur-md bg-white/10 rounded-xl p-8 shadow-xl border border-white/20 hover:bg-white/20 transition duration-300"
+            ref={contactDetailsRef}
+          >
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-8">Phố đêm</h2>
             
-            <div className="space-y-4">
-              <a
-                href="tel:+421 908 039 280"
-                className="flex items-center space-x-3 text-neutral-900 hover:text-neutral-700 transition-colors"
-              >
-                <FaPhone className="text-neutral-900" />
-                <span className="font-medium">+421 908 039 280</span>
-              </a>
+            <div className="space-y-8">
+              {/* Opening Hours */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <FaClock className="text-yellow-200 text-xl" />
+                  <h3 className="text-lg font-semibold text-white">Otváracie hodiny</h3>
+                </div>
+                <div className="space-y-2">
+                  {businessHours.map((schedule) => (
+                    <div
+                      key={schedule.day}
+                      className={`flex justify-between ${
+                        schedule.day === currentDay ? "text-yellow-200" : "text-white/80"
+                      }`}
+                    >
+                      <span className="font-medium">{schedule.day}</span>
+                      <span className="font-medium">{schedule.hours}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-              <a
-                href="mailto:phodem23@centrum.sk"
-                className="flex items-center space-x-3 text-neutral-900 hover:text-neutral-700 transition-colors"
-              >
-                <FaEnvelope className="text-neutral-900" />
-                <span className="font-medium">phodem23@centrum.sk</span>
-              </a>
+              {/* Contact Details */}
+              <div className="space-y-4">
+                <a
+                  href="tel:+421 908 039 280"
+                  className="flex items-center gap-3 text-white/80 hover:text-yellow-200 transition-colors"
+                >
+                  <FaPhone className="text-xl" />
+                  <span className="font-medium">+421 908 039 280</span>
+                </a>
 
-              <div className="flex items-center space-x-3 text-neutral-900">
-                <FaMapMarkerAlt className="text-neutral-900" />
-                <span className="font-medium">Letná 1073/6 064 03 Stara lubovna, Slovakia</span>
+                <a
+                  href="mailto:phodem23@centrum.sk"
+                  className="flex items-center gap-3 text-white/80 hover:text-yellow-200 transition-colors"
+                >
+                  <FaEnvelope className="text-xl" />
+                  <span className="font-medium">phodem23@centrum.sk</span>
+                </a>
+
+                <div className="flex items-center gap-3 text-white/80">
+                  <FaMapMarkerAlt className="text-xl text-yellow-200" />
+                  <span className="font-medium">Letná 1073/6 064 03 Stará Ľubovňa, Slovakia</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Opening Hours */}
-          <div className="bg-yellow-100 p-10 rounded-lg shadow-lg" ref={hoursRef}>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-neutral-900 mb-6">Otváracie hodiny</h2>
-            <div className="space-y-2">
-              {businessHours.map((schedule) => (
-                <div
-                  key={schedule.day}
-                  className={`flex justify-between items-center p-2 rounded ${
-                    schedule.day === currentDay ? "bg-amber-200 bg-opacity-10" : ""
-                  }`}
-                >
-                  <span className="font-medium text-neutral-900">{schedule.day}</span>
-                  <span className="font-medium text-neutral-900">{schedule.hours}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Map */}
-          <div className="bg-neutral-800 p-10 rounded-lg shadow-lg lg:col-span-1" ref={mapRef}>
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6">Kde nás nájdete</h2>
+          {/* Map Card */}
+          <div 
+            className="backdrop-blur-md bg-white/10 rounded-xl overflow-hidden shadow-xl border border-white/20 p-4"
+            ref={mapRef}
+          >
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-8 text-center">Kde nás nájdete</h2>
             <div className="relative h-[400px] rounded-lg overflow-hidden">
               <iframe
                 title="Restaurant Location"
@@ -130,8 +139,8 @@ const Contact: React.FC = () => {
           </div>
         </div>
       </div>
-        </section>
-    );
+    </section>
+  );
 };
 
 export default Contact;
