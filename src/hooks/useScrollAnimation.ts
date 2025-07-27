@@ -7,6 +7,15 @@ interface UseScrollAnimationOptions {
   delay?: number;
 }
 
+// Helper function to detect mobile/tablet devices
+const isMobileOrTablet = (): boolean => {
+  // Check if window exists (for SSR compatibility)
+  if (typeof window === 'undefined') return false;
+  
+  // Check screen width - common breakpoint for tablets is 1024px
+  return window.innerWidth < 1024;
+};
+
 export const useScrollAnimation = <T extends HTMLElement>(options: UseScrollAnimationOptions = {}) => {
   const {
     threshold = 0.1,
@@ -17,10 +26,30 @@ export const useScrollAnimation = <T extends HTMLElement>(options: UseScrollAnim
 
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<T>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  // Set mobile state on component mount
+  useEffect(() => {
+    setIsMobile(isMobileOrTablet());
+    
+    // Update on resize for orientation changes
+    const handleResize = () => {
+      setIsMobile(isMobileOrTablet());
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const element = elementRef.current;
     if (!element) return;
+    
+    // If mobile/tablet, set visible immediately without animation
+    if (isMobile) {
+      setIsVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -45,7 +74,7 @@ export const useScrollAnimation = <T extends HTMLElement>(options: UseScrollAnim
         observer.unobserve(element);
       }
     };
-  }, [threshold, rootMargin, animationClass, delay]);
+  }, [threshold, rootMargin, animationClass, delay, isMobile]);
 
   return { elementRef, isVisible };
 };
