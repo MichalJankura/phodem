@@ -1,5 +1,5 @@
-import heroBg from '../assets/hero-bg-2.png';
-import pohneBg from '../assets/hero-bg-phone.png';
+import heroBg from '../assets/hero-bg-2-converted.webp';
+import pohneBg from '../assets/hero-bg-phone-converted.webp';
 import { useState, useEffect } from 'react';
 import FirefliesOverlay from "../components/FirefliesOverlay";
 

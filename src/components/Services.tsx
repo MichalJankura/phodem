@@ -13,7 +13,7 @@ const cards = [
   },
   {
     title: "Oslavy",
-    image: "/restaurant.png",
+    image: "/restaurant.webp",
     desc: "Plánujete rodinnú oslavu, svadbu, firemný večierok alebo narodeniny? Naša reštaurácia a salónik je ideálnym miestom na vaše ázijské oslavy s originálnou kuchyňou.",
     bg: "bg-neutral-800",
     text: "text-white",

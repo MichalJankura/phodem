@@ -1,7 +1,7 @@
 import igvideo from '../assets/igvideo.mp4';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import FlipWords from './FlipWords';
-import bgabout from '/about-bg.png';
+import bgabout from '/about-bg.webp';
 
 const About = () => {
     const { elementRef: sectionRef } = useScrollAnimation({

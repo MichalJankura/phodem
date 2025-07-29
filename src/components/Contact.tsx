@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0 bg-black ">
         <img 
-          src="/contact-bg.png" 
+          src="/contact-bg.webp" 
           alt="Contact Background" 
           className="w-full h-full object-cover object-center"
         />
