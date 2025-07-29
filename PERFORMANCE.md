@@ -6,7 +6,14 @@ This is the website for PHỞ ĐÊM, a Vietnamese restaurant.
 
 This website has been optimized for high-performance using several techniques:
 
-### 1. Non-Blocking Font Loading
+### 1. Resource Caching
+
+- Implemented Expires headers for optimal browser caching (1 year for static assets)
+- Implemented service worker for offline capabilities via PWA
+- Strategic cache policies for different asset types
+- Vercel configuration for optimal cache headers
+
+### 2. Non-Blocking Font Loading
 
 - Using `preconnect` for Google Fonts domains
 - Loading font CSS with `preload` strategy and fallback for noscript users
@@ -18,11 +25,7 @@ This website has been optimized for high-performance using several techniques:
 - Image compression and format optimization
 - Proper size attributes to prevent layout shifts
 
-### 3. Resource Caching
 
-- Implemented service worker for offline capabilities via PWA
-- Strategic cache policies for different asset types
-- Vercel configuration for optimal cache headers
 
 ### 4. Code Splitting
 
