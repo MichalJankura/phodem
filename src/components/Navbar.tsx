@@ -1,18 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 
-const Navbar: React.FC = () => {
+const NavbarComponent: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  // Handle scroll effect
+  // Handle scroll effect with throttle to prevent forced reflow
   useEffect(() => {
+    let lastKnownScrollY = window.scrollY;
+    let ticking = false;
+    
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      lastKnownScrollY = window.scrollY;
+      
+      if (!ticking) {
+        // Use requestAnimationFrame to optimize scroll handling
+        window.requestAnimationFrame(() => {
+          setIsScrolled(lastKnownScrollY > 20);
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -239,4 +252,6 @@ const Navbar: React.FC = () => {
   );
 };
 
+// Use React memo to prevent unnecessary re-renders
+const Navbar = memo(NavbarComponent);
 export default Navbar;

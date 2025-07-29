@@ -1,14 +1,39 @@
+import { useState, useEffect, Suspense, lazy } from 'react'
 import Navbar from './components/Navbar'
 import './App.css'
 import Mainhero from './components/Mainhero'
-import About from './components/About'
-import Services from './components/Services'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
+import { PreloadProvider, usePreload } from './hooks/usePreload'
 
-function App() {
+// Lazy load non-critical components
+const About = lazy(() => import('./components/About'))
+const Services = lazy(() => import('./components/Services'))
+const Contact = lazy(() => import('./components/Contact'))
+
+// Loading placeholder
+const LoadingPlaceholder = () => (
+  <div className="flex items-center justify-center h-screen bg-black">
+    <div className="text-white text-2xl font-bold">Loading...</div>
+  </div>
+);
+
+function AppContent() {
+  const { assetsLoaded } = usePreload();
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    if (assetsLoaded) {
+      // Add a small delay for smoother transition
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 300);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [assetsLoaded]);
+  
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+    <div className={`min-h-screen bg-background text-foreground transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <Navbar />
       <main>
         <section 
@@ -18,18 +43,28 @@ function App() {
           <Mainhero/>
         </section>
 
-        {/* About Section */}
-        <About /> 
+        <Suspense fallback={<LoadingPlaceholder />}>
+          {/* About Section */}
+          <About /> 
 
-        {/* Services Section */}
-        <Services />
+          {/* Services Section */}
+          <Services />
 
-        {/* Contact Section */}
-        <Contact />
+          {/* Contact Section */}
+          <Contact />
+        </Suspense>
       </main>
       {/* Footer Section */}
       <Footer />
     </div>
+  )
+}
+
+function App() {
+  return (
+    <PreloadProvider>
+      <AppContent />
+    </PreloadProvider>
   )
 }
 
