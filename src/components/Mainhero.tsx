@@ -64,8 +64,8 @@ const Mainhero = () => {
               : 'bg-white text-gray-900 hover:bg-white hover:text-gray-900'
           } active:bg-gray-900 active:text-white`}
           aria-label="Denné menu"
-          onClick={() => window.open('/daily01.pdf', '_blank')}
-          onMouseEnter={() => setHoveredButton('daily')}
+          onClick={() => window.open('/denne_menu.pdf', '_blank')}
+          onMouseEnter={() => setHoveredButton('denne_menu')}
           onMouseLeave={() => setHoveredButton(null)}
         >
           Denné menu
