@@ -33,35 +33,53 @@ const About = () => {
                         controls={false}
                         ref={(el) => {
                         if (el) {
-                            // Force play for iOS devices
+                            // Force play for iOS devices with error handling
                             const playVideo = () => {
-                                const playPromise = el.play();
-                                if (playPromise !== undefined) {
-                                    playPromise.catch(() => {
-                                        // Auto-play was prevented
-                                        // Try setting muted to true and playing again
-                                        el.muted = true;
-                                        el.play().catch(e => console.log("Still cannot play video:", e));
-                                    });
+                                if (el.paused) {
+                                    const playPromise = el.play();
+                                    
+                                    if (playPromise !== undefined) {
+                                        playPromise.catch((error) => {
+                                            // Only log real errors, not interruptions
+                                            if (error.name !== 'AbortError') {
+                                                console.log("Video play error:", error.name);
+                                                
+                                                // Ensure video is muted (helps with autoplay policies)
+                                                el.muted = true;
+                                                
+                                                // Try again after a short delay
+                                                setTimeout(() => {
+                                                    el.play().catch(() => {}); // Silently handle subsequent failures
+                                                }, 300);
+                                            }
+                                        });
+                                    }
                                 }
                             };
+                            
+                            let isPlaying = false;
                             
                             const observer = new IntersectionObserver(
                             (entries) => {
                                 entries.forEach((entry) => {
-                                if (entry.isIntersecting) {
-                                    playVideo();
-                                } else {
-                                    el.pause();
-                                }
+                                    // Add a debounce to prevent rapid play/pause cycles
+                                    if (entry.isIntersecting) {
+                                        if (!isPlaying) {
+                                            isPlaying = true;
+                                            setTimeout(playVideo, 200);
+                                        }
+                                    } else {
+                                        isPlaying = false;
+                                        // Don't immediately pause - let it play a bit when scrolling past
+                                        setTimeout(() => {
+                                            if (!isPlaying) el.pause();
+                                        }, 500);
+                                    }
                                 });
                             },
                             { threshold: 0.3 }
                             );
                             observer.observe(el);
-                            
-                            // Additional attempt to play video on iOS
-                            playVideo();
                         }
                         }}
                     />

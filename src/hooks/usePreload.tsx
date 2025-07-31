@@ -19,39 +19,20 @@ export const usePreload = () => useContext(PreloadContext);
 
 interface PreloadProviderProps {
   children: ReactNode;
-  criticalImages?: string[];
+  // criticalImages removed as it's no longer needed
 }
 
 export const PreloadProvider: React.FC<PreloadProviderProps> = ({
   children,
-  criticalImages = [
-    '/assets/hero-bg-2-converted.webp',
-    '/assets/hero-bg-phone-converted.webp',
-  ],
+  // criticalImages param removed as we're not using it anymore
 }) => {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  // Images are considered loaded by default since we're not preloading them
+  const imagesLoaded = true;
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
 
-  // Preload critical images
-  useEffect(() => {
-    const imagePromises = criticalImages.map(src => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-    });
-
-    Promise.all(imagePromises)
-      .then(() => setImagesLoaded(true))
-      .catch(error => {
-        console.error('Error preloading images:', error);
-        // Still set as loaded to avoid blocking rendering
-        setImagesLoaded(true);
-      });
-  }, [criticalImages]);
+  // We're skipping image preloading since the images are already optimized
+  // and being loaded efficiently through the HTML with proper attributes
 
   // Check if fonts are loaded
   useEffect(() => {
