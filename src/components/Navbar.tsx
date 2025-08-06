@@ -54,7 +54,7 @@ const NavbarComponent: React.FC = () => {
       dropdown: true,
       items: [
         { name: 'Hlavné menu', href: '/phodem_menu.pdf', external: true },
-        { name: 'Denné menu', href: '/daily01.pdf', external: true },
+        { name: 'Denné menu', href: '/denne_menu.pdf', external: true },
       ]
     },
     { name: 'Kontakt', href: '#contact' },
