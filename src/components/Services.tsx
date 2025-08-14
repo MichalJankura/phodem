@@ -1,16 +1,16 @@
 // src/components/RestaurantSections.tsx
 
 import React from "react";
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+// Removed useScrollAnimation for always-visible rendering
 
 const cards = [
   {
     title: "Reštaurácia",
     image: "/menu-optimized.jpg",
-    srcSet: "/menu-optimized.jpg 800w, /menu-optimized.jpg 1200w", // placeholder same file (could add additional sizes)
+    srcSet: "/menu-optimized.jpg 800w, /menu-optimized.jpg 1200w",
     sizes: "(min-width:1024px) 33vw, 100vw",
     desc: "Už viac ako 10 rokov Vám prinášame pravé vietnamské a ázijské špeciality pripravené z čerstvých surovín, tradičných rezancov, polievok a wok jedál.",
-    bg: "bg-[#FF8622]", // Changed from bg-#FF8622 to a Tailwind orange color
+    bg: "bg-[#FF8622]",
     text: "text-neutral-900",
   },
   {
@@ -34,45 +34,32 @@ const cards = [
 ];
 
 const Services: React.FC = () => {
-  const { elementRef: sectionRef } = useScrollAnimation<HTMLDivElement>({
-    threshold: 0.2,
-    animationClass: 'animate-fade-in-scale'
-  });
-
   return (
     <div 
-      className="w-full min-h-screen lg:h-screen flex flex-col lg:flex-row font-sans scroll-fade-in" 
+      className="w-full min-h-screen lg:h-screen flex flex-col lg:flex-row font-sans" 
       id="services"
-      ref={sectionRef}
     >
-      {cards.map((card) => {
-        const { elementRef: cardRef } = useScrollAnimation<HTMLDivElement>({});
-
-        return (
-          <div key={card.title}
-            className="flex-1 flex flex-col min-h-[50vh] lg:min-h-full"
-            ref={cardRef}
-          >
-            <div className={`${card.bg} ${card.text} flex-1 flex flex-col items-center justify-center px-6 py-8 min-h-[25vh] lg:min-h-0`}>
-              <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-center drop-shadow">{card.title}</h2>
-              <p className="text-sm md:text-base lg:text-lg font-medium text-center max-w-sm lg:max-w-none">{card.desc}</p>
-            </div>
-            <div className="flex-1 w-full overflow-hidden min-h-[25vh] lg:min-h-0">
-              <img
-                src={card.image}
-                srcSet={card.srcSet}
-                sizes={card.sizes}
-                alt={card.title}
-                className="w-full h-full object-center object-cover lg:object-scale-down"
-                loading="lazy"
-                decoding="async"
-                width={800}
-                height={600}
-              />
-            </div>
+      {cards.map((card) => (
+        <div key={card.title} className="flex-1 flex flex-col min-h-[50vh] lg:min-h-full">
+          <div className={`${card.bg} ${card.text} flex-1 flex flex-col items-center justify-center px-6 py-8 min-h-[25vh] lg:min-h-0`}>
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-center drop-shadow">{card.title}</h2>
+            <p className="text-sm md:text-base lg:text-lg font-medium text-center max-w-sm lg:max-w-none">{card.desc}</p>
           </div>
-        );
-      })}
+          <div className="flex-1 w-full overflow-hidden min-h-[25vh] lg:min-h-0">
+            <img
+              src={card.image}
+              srcSet={card.srcSet}
+              sizes={card.sizes}
+              alt={card.title}
+              className="w-full h-full object-center object-cover lg:object-scale-down"
+              loading="lazy"
+              decoding="async"
+              width={800}
+              height={600}
+            />
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

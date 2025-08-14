@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Contact: React.FC = () => {
   const [currentDay, setCurrentDay] = useState("");
-  
-  const { elementRef: sectionRef } = useScrollAnimation<HTMLDivElement>({
-    threshold: 0.2,
-    animationClass: 'animate-fade-in-scale'
-  });
 
   useEffect(() => {
     const days = ["Nedeľa", "Pondelok", "Utorok", "Streda", "Štvrtok", "Piatok", "Sobota"];
@@ -25,14 +19,10 @@ const Contact: React.FC = () => {
     { day: "Nedeľa", hours: "11:00 - 21:00" }
   ];
 
-  const { elementRef: contactDetailsRef } = useScrollAnimation<HTMLDivElement>({});
-  const { elementRef: mapRef } = useScrollAnimation<HTMLDivElement>({});
-
   return (
     <section 
       id="contact" 
-      className="relative w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8 font-sans scroll-fade-in"
-      ref={sectionRef}
+      className="relative w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8 font-sans"
     >
       <div className="absolute inset-0 z-0 bg-black ">
         <img 
@@ -51,7 +41,6 @@ const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-5xl">
           <div 
             className="backdrop-blur-md bg-white/10 rounded-xl p-8 shadow-xl border border-white/20 hover:bg-white/20 transition duration-300"
-            ref={contactDetailsRef}
           >
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-8">Phố đêm</h2>
             <div className="space-y-8">
@@ -98,7 +87,6 @@ const Contact: React.FC = () => {
           </div>
           <div 
             className="backdrop-blur-md bg-white/10 rounded-xl overflow-hidden shadow-xl border border-white/20 p-4"
-            ref={mapRef}
           >
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-8 text-center">Kde nás nájdete</h2>
             <div className="relative h-[400px] rounded-lg overflow-hidden">
