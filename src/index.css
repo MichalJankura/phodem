@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Import Open Sans font */
+/* Self-hosted Open Sans variable font (removed external Google Fonts) */
 @font-face {
   font-family: 'Open Sans';
   src: url('./fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf') format('truetype-variations');
@@ -8,7 +8,6 @@
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: 'Open Sans';
   src: url('./fonts/Open_Sans/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype-variations');
@@ -449,3 +448,11 @@ img {
 .bg-primary\/5 {
   background-color: rgba(48, 86, 211, 0.05);
 }
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Note: Unused classes should be removed in production for performance */

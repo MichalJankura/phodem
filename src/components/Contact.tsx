@@ -25,15 +25,8 @@ const Contact: React.FC = () => {
     { day: "Nedeľa", hours: "11:00 - 21:00" }
   ];
 
-  const { elementRef: contactDetailsRef } = useScrollAnimation<HTMLDivElement>({
-    // threshold: 0.2,
-    // animationClass: 'animate-fade-in-scale',
-  });
-
-  const { elementRef: mapRef } = useScrollAnimation<HTMLDivElement>({
-    // threshold: 0.2,
-    // animationClass: 'animate-fade-in-scale',
-  });
+  const { elementRef: contactDetailsRef } = useScrollAnimation<HTMLDivElement>({});
+  const { elementRef: mapRef } = useScrollAnimation<HTMLDivElement>({});
 
   return (
     <section 
@@ -41,27 +34,27 @@ const Contact: React.FC = () => {
       className="relative w-full min-h-screen py-12 px-4 sm:px-6 lg:px-8 font-sans scroll-fade-in"
       ref={sectionRef}
     >
-      {/* Background Image */}
       <div className="absolute inset-0 z-0 bg-black ">
         <img 
-          src="/contact-bg.webp" 
-          alt="Contact Background" 
+          src="/contact-bg-optimized.webp" 
+          alt="Interiér reštaurácie PHỞ ĐÊM - kontakt" 
           className="w-full h-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+          width={1920}
+          height={1080}
         />
       </div>
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto flex justify-center items-center h-full min-h-[80vh]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-5xl">
-          {/* Contact Information Card */}
           <div 
             className="backdrop-blur-md bg-white/10 rounded-xl p-8 shadow-xl border border-white/20 hover:bg-white/20 transition duration-300"
             ref={contactDetailsRef}
           >
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-8">Phố đêm</h2>
-            
             <div className="space-y-8">
-              {/* Opening Hours */}
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <FaClock className="text-yellow-200 text-xl" />
@@ -81,17 +74,14 @@ const Contact: React.FC = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Contact Details */}
               <div className="space-y-4">
                 <a
-                  href="tel:+421 908 039 280"
+                  href="tel:+421908039280"
                   className="flex items-center gap-3 text-white/80 hover:text-yellow-200 transition-colors"
                 >
                   <FaPhone className="text-xl" />
                   <span className="font-medium">+421 908 039 280</span>
                 </a>
-
                 <a
                   href="mailto:phodem23@centrum.sk"
                   className="flex items-center gap-3 text-white/80 hover:text-yellow-200 transition-colors"
@@ -99,7 +89,6 @@ const Contact: React.FC = () => {
                   <FaEnvelope className="text-xl" />
                   <span className="font-medium">phodem23@centrum.sk</span>
                 </a>
-
                 <div className="flex items-center gap-3 text-white/80">
                   <FaMapMarkerAlt className="text-xl text-yellow-200" />
                   <span className="font-medium">Letná 1073/6 064 03 Stará Ľubovňa, Slovakia</span>
@@ -107,8 +96,6 @@ const Contact: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* Map Card */}
           <div 
             className="backdrop-blur-md bg-white/10 rounded-xl overflow-hidden shadow-xl border border-white/20 p-4"
             ref={mapRef}
@@ -116,16 +103,18 @@ const Contact: React.FC = () => {
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white mb-8 text-center">Kde nás nájdete</h2>
             <div className="relative h-[400px] rounded-lg overflow-hidden">
               <iframe
-                title="Restaurant Location"
+                title="Mapa reštaurácie PHỞ ĐÊM"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2601.861977438683!2d20.678720376792388!3d49.297957669672044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473e13c51e8f8a87%3A0x5181772ce616c05c!2zUGjhu5EgxJHDqm0!5e0!3m2!1ssk!2ssk!4v1753540282942!5m2!1ssk!2ssk"
                 className="absolute inset-0 w-full h-full border-0"
                 allowFullScreen={true}
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                aria-label="Mapa umiestnenia PHỞ ĐÊM"
                 onError={(e) => {
                   const target = e.target as HTMLIFrameElement;
                   const fallback = target.nextElementSibling as HTMLElement;
                   target.style.display = "none";
-                  if (fallback) fallback.style.display = "block";
+                  if (fallback) fallback.style.display = "flex";
                 }}
               ></iframe>
               <div
@@ -133,7 +122,7 @@ const Contact: React.FC = () => {
                 style={{ display: 'none' }}
                 role="alert"
               >
-                <p className="font-medium">Map loading failed. Please try again later.</p>
+                <p className="font-medium">Mapu sa nepodarilo načítať. Skúste neskôr.</p>
               </div>
             </div>
           </div>

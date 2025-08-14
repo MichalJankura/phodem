@@ -31,7 +31,8 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,ttf,pdf}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,ttf,pdf,mp4}'],
+        maximumFileSizeToCacheInBytes: 5000000, // 5MB limit for caching large files like videos
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -68,6 +69,17 @@ export default defineConfig({
               cacheName: 'images',
               expiration: {
                 maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+              }
+            }
+          },
+          {
+            urlPattern: /\.(?:mp4|webm|ogg)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'videos',
+              expiration: {
+                maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
               }
             }

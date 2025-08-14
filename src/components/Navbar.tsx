@@ -54,7 +54,7 @@ const NavbarComponent: React.FC = () => {
       dropdown: true,
       items: [
         { name: 'Hlavné menu', href: '/phodem_menu.pdf', external: true },
-        { name: 'Denné menu', href: '/daily01.pdf', external: true },
+        { name: 'Denné menu', href: '/denne_menu.pdf', external: true },
       ]
     },
     { name: 'Kontakt', href: '#contact' },
@@ -93,6 +93,8 @@ const NavbarComponent: React.FC = () => {
           ? 'bg-black backdrop-blur-md shadow-sm border-b border-black'
           : 'bg-black backdrop-blur-sm'
       }`}
+      role="navigation"
+      aria-label="Hlavná navigácia"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -109,30 +111,32 @@ const NavbarComponent: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <ul className="ml-10 flex items-baseline space-x-8">
               {navItems.map((item) => (
-                <div key={item.name} className="relative dropdown-container">
+                <li key={item.name} className="relative dropdown-container">
                   {item.dropdown ? (
                     <div>
                       <button
                         onClick={() => toggleDropdown(item.name)}
                         className="text-white hover:text-gray-300 px-3 py-2 text-sm font-sans font-bold transition-colors duration-200 relative group flex items-center"
+                        aria-haspopup="true"
+                        aria-expanded={openDropdown === item.name}
+                        aria-controls={`dropdown-${item.name}`}
                       >
                         {item.name}
                         <svg
-                          className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                            openDropdown === item.name ? 'rotate-180' : ''
-                          }`}
+                          className={`ml-1 h-4 w-4 transition-transform duration-200 ${openDropdown === item.name ? 'rotate-180' : ''}`}
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
+                          aria-hidden="true"
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                         <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-200 group-hover:w-full"></span>
                       </button>
                       {openDropdown === item.name && (
-                        <div className="absolute top-full left-0 mt-1 w-48 bg-black border border-black rounded-md shadow-lg z-50">
+                        <div id={`dropdown-${item.name}`} className="absolute top-full left-0 mt-1 w-48 bg-black border border-black rounded-md shadow-lg z-50" role="menu">
                           {item.items?.map((subItem) => (
                             <a
                               key={subItem.name}
@@ -141,10 +145,11 @@ const NavbarComponent: React.FC = () => {
                               rel={subItem.external ? 'noopener noreferrer' : undefined}
                               className="block px-4 py-2 text-sm text-white hover:bg-gray-800 hover:text-gray-200 font-open-sans transition-colors duration-200"
                               onClick={() => setOpenDropdown(null)}
+                              role="menuitem"
                             >
                               {subItem.name}
                               {subItem.external && (
-                                <svg className="inline ml-1 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="inline ml-1 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                 </svg>
                               )}
@@ -163,54 +168,58 @@ const NavbarComponent: React.FC = () => {
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-200 group-hover:w-full"></span>
                     </a>
                   )}
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleMenu}
-              className="p-2 rounded-md text-white hover:text-gray-300 hover:bg-gray-800 transition-all duration-200"
-              aria-label="Toggle menu"
+              className="p-2 rounded-md text-white hover:text-gray-300 hover:bg-gray-800 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              aria-label="Mobilná navigácia"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
-              {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              {isMenuOpen ? <FiX size={24} aria-hidden="true"/> : <FiMenu size={24} aria-hidden="true"/>}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         <div
+          id="mobile-menu"
           className={`md:hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen
-              ? 'max-h-96 opacity-100 visible'
-              : 'max-h-0 opacity-0 invisible'
+            isMenuOpen ? 'max-h-96 opacity-100 visible' : 'max-h-0 opacity-0 invisible'
           }`}
+          aria-hidden={!isMenuOpen}
         >
-          <div className="px-2 pt-2 pb-6 space-y-1 bg-black backdrop-blur-md rounded-b-lg border-x border-b border-black mt-2">
+          <ul className="px-2 pt-2 pb-6 space-y-1 bg-black backdrop-blur-md rounded-b-lg border-x border-b border-black mt-2">
             {navItems.map((item) => (
-              <div key={item.name} className="dropdown-container">
+              <li key={item.name} className="dropdown-container">
                 {item.dropdown ? (
                   <div>
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className="flex items-center justify-between w-full text-white hover:text-gray-300 hover:bg-gray-800 px-3 py-3 text-base font-sans font-bold transition-all duration-200 rounded-sm"
+                      className="flex items-center justify-between w-full text-white hover:text-gray-300 hover:bg-gray-800 px-3 py-3 text-base font-sans font-bold transition-all duration-200 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                      aria-haspopup="true"
+                      aria-expanded={openDropdown === item.name}
+                      aria-controls={`mobile-dropdown-${item.name}`}
                     >
                       {item.name}
                       <svg
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          openDropdown === item.name ? 'rotate-180' : ''
-                        }`}
+                        className={`h-4 w-4 transition-transform duration-200 ${openDropdown === item.name ? 'rotate-180' : ''}`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
+                        aria-hidden="true"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
                     {openDropdown === item.name && (
-                      <div className="ml-4 space-y-1">
+                      <div id={`mobile-dropdown-${item.name}`} className="ml-4 space-y-1" role="menu">
                         {item.items?.map((subItem) => (
                           <a
                             key={subItem.name}
@@ -222,10 +231,11 @@ const NavbarComponent: React.FC = () => {
                               setIsMenuOpen(false);
                               setOpenDropdown(null);
                             }}
+                            role="menuitem"
                           >
                             {subItem.name}
                             {subItem.external && (
-                              <svg className="ml-1 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <svg className="ml-1 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                               </svg>
                             )}
@@ -243,9 +253,9 @@ const NavbarComponent: React.FC = () => {
                     {item.name}
                   </a>
                 )}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </nav>

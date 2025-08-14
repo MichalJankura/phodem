@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import igVideoSrc from '../assets/videos/igvideo.mp4';
+import igVideoSrc from '../assets/igvideo.mp4';
 
 interface VideoPlayerProps {
   className?: string;

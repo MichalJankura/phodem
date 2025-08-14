@@ -1,13 +1,32 @@
 import igvideo from '../assets/igvideo.mp4';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import FlipWords from './FlipWords';
-import bgabout from '/about-bg.webp';
+import bgabout from '/about-bg-optimized.webp';
+import { useEffect, useRef, useState } from 'react';
 
 const About = () => {
     const { elementRef: sectionRef } = useScrollAnimation({
         threshold: 0.1,
         animationClass: 'animate-fade-in-up'
     });
+
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const placeholderRef = useRef<HTMLDivElement | null>(null);
+    const [canLoadVideo, setCanLoadVideo] = useState(false);
+
+    useEffect(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setCanLoadVideo(true);
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.15 });
+
+      if (placeholderRef.current) observer.observe(placeholderRef.current);
+      return () => observer.disconnect();
+    }, []);
 
     return (
         <section 
@@ -17,74 +36,28 @@ const About = () => {
         >
             <div className="flex flex-col md:flex-row w-full">
                 {/* Left side - Video */}
-                <div 
-                    className="w-full md:w-1/2 md:pl-0"
-                >
-                <div className="overflow-hidden shadow-lg">
+                <div className="w-full md:w-1/2 md:pl-0">
+                  <div className="overflow-hidden shadow-lg">
                     <div className="relative w-full h-screen" style={{ aspectRatio: '9/16' }}>
-                    <video 
-                        className="absolute inset-0 w-full h-full object-cover"
-                        src={igvideo}
-                        title="O našej reštaurácii"
-                        muted
-                        loop
-                        playsInline
-                        autoPlay
-                        controls={false}
-                        ref={(el) => {
-                        if (el) {
-                            // Force play for iOS devices with error handling
-                            const playVideo = () => {
-                                if (el.paused) {
-                                    const playPromise = el.play();
-                                    
-                                    if (playPromise !== undefined) {
-                                        playPromise.catch((error) => {
-                                            // Only log real errors, not interruptions
-                                            if (error.name !== 'AbortError') {
-                                                console.log("Video play error:", error.name);
-                                                
-                                                // Ensure video is muted (helps with autoplay policies)
-                                                el.muted = true;
-                                                
-                                                // Try again after a short delay
-                                                setTimeout(() => {
-                                                    el.play().catch(() => {}); // Silently handle subsequent failures
-                                                }, 300);
-                                            }
-                                        });
-                                    }
-                                }
-                            };
-                            
-                            let isPlaying = false;
-                            
-                            const observer = new IntersectionObserver(
-                            (entries) => {
-                                entries.forEach((entry) => {
-                                    // Add a debounce to prevent rapid play/pause cycles
-                                    if (entry.isIntersecting) {
-                                        if (!isPlaying) {
-                                            isPlaying = true;
-                                            setTimeout(playVideo, 200);
-                                        }
-                                    } else {
-                                        isPlaying = false;
-                                        // Don't immediately pause - let it play a bit when scrolling past
-                                        setTimeout(() => {
-                                            if (!isPlaying) el.pause();
-                                        }, 500);
-                                    }
-                                });
-                            },
-                            { threshold: 0.3 }
-                            );
-                            observer.observe(el);
-                        }
-                        }}
-                    />
+                      {canLoadVideo ? (
+                        <video 
+                          className="absolute inset-0 w-full h-full object-cover"
+                          src={igvideo}
+                          title="O našej reštaurácii"
+                          muted
+                          loop
+                          playsInline
+                          autoPlay
+                          controls={false}
+                          preload="none"
+                          poster="/restaurant-optimized.webp"
+                          ref={videoRef}
+                        />
+                      ) : (
+                        <div ref={placeholderRef} className="absolute inset-0 w-full h-full bg-neutral-900 flex items-center justify-center text-white text-sm">Načítavam...</div>
+                      )}
                     </div>
-                </div>
+                  </div>
                 </div>
                 
                 {/* Right side - FlipWords */}

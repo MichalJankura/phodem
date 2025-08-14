@@ -6,21 +6,21 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 const cards = [
   {
     title: "Reštaurácia",
-    image: "/menu.jpg", // nahraď svojím obrázkom
+    image: "/menu-optimized.jpg",
     desc: "Už viac ako 10 rokov Vám prinášame pravé vietnamské a ázijské špeciality pripravené z čerstvých surovín, tradičných rezancov, polievok a wok jedál.",
     bg: "bg-[#FF8622]", // Changed from bg-#FF8622 to a Tailwind orange color
     text: "text-neutral-900",
   },
   {
     title: "Oslavy",
-    image: "/restaurant.webp",
+    image: "/restaurant-optimized.webp",
     desc: "Plánujete rodinnú oslavu, svadbu, firemný večierok alebo narodeniny? Naša reštaurácia a salónik je ideálnym miestom na vaše ázijské oslavy s originálnou kuchyňou.",
     bg: "bg-neutral-800",
     text: "text-white",
   },
   {
     title: "Denné menu",
-    image: "/denne.jpg",
+    image: "/denne-optimized.jpg",
     desc: "Každý pracovný deň ponúkame pestré ázijské denné menu a rýchly rozvoz teplých jedál priamo do vašej firmy alebo domov.",
     bg: "bg-[#FF8622]",
     text: "text-neutral-900",
@@ -40,10 +40,7 @@ const Services: React.FC = () => {
       ref={sectionRef}
     >
       {cards.map((card) => {
-        const { elementRef: cardRef } = useScrollAnimation<HTMLDivElement>({
-          // threshold: 0.2,
-          // animationClass: 'animate-fade-in-scale',
-        });
+        const { elementRef: cardRef } = useScrollAnimation<HTMLDivElement>({});
 
         return (
           <div key={card.title}
@@ -59,6 +56,10 @@ const Services: React.FC = () => {
                 src={card.image}
                 alt={card.title}
                 className="w-full h-full object-center object-cover lg:object-scale-down"
+                loading="lazy"
+                decoding="async"
+                width={800}
+                height={600}
               />
             </div>
           </div>

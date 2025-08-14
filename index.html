@@ -4,23 +4,65 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/phodem-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-    </noscript>
     <title>PHỞ ĐÊM</title>
-    
-    <!-- No preloading needed as images are already optimized -->
-    <!-- Removed image preloading to avoid browser console warnings -->
-    
-    <!-- Meta tags -->
-    <meta name="description" content="PHỞ ĐÊM - Authentic Vietnamese restaurant in Slovakia">
+    <!-- Critical (above-the-fold) CSS -->
+    <style id="critical-css">html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}html,body{margin:0;padding:0;background:#000;color:#fff;font-family:'Open Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}#root{min-height:100vh;isolation:isolate}nav[role="navigation"]{position:fixed;top:0;left:0;right:0;z-index:50;background:#000;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:0 .75rem}nav[role="navigation"] a{color:#fff;text-decoration:none;font-weight:700;letter-spacing:.5px}nav[role="navigation"] a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:2px}section#home{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}section#home img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}section#home .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}/* CTA buttons */.hero-cta-btn{font:600 15px/1 'Open Sans',sans-serif;cursor:pointer;border:0}/* Prevent layout shift for nav */body{padding-top:64px} @media (min-width:640px){body{padding-top:64px}}/* Smooth render transition placeholder */.fade-in-initial{opacity:0;animation:fadeInCritical .6s ease-out .05s forwards}@keyframes fadeInCritical{to{opacity:1}}</style>
+    <!-- Primary Meta -->
+    <meta name="description" content="PHỞ ĐÊM - Autentická vietnamská a ázijská reštaurácia v Starej Ľubovni. Polievky, wok jedlá, denné menu a catering." />
+    <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.phodem.sk/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="PHỞ ĐÊM" />
+    <meta property="og:title" content="PHỞ ĐÊM - Vietnamská & Ázijská Reštaurácia" />
+    <meta property="og:description" content="Autentická vietnamská a ázijská kuchyňa v Starej Ľubovni. Polievky, wok, denné menu a viac." />
+    <meta property="og:image" content="/phodem-icon.png" />
+    <meta property="og:locale" content="sk_SK" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="PHỞ ĐÊM - Vietnamská & Ázijská Reštaurácia" />
+    <meta name="twitter:description" content="Autentická vietnamská a ázijská kuchyňa v Starej Ľubovni." />
+    <meta name="twitter:image" content="/phodem-icon.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "PHỞ ĐÊM",
+        "image": "https://www.phodem.sk/phodem-icon.png",
+        "url": "https://www.phodem.sk/",
+        "telephone": "+421908039280",
+        "servesCuisine": ["Vietnamese", "Asian"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Letná 1073/6",
+          "addressLocality": "Stará Ľubovňa",
+          "addressRegion": "Prešov",
+          "postalCode": "064 03",
+          "addressCountry": "SK"
+        },
+        "openingHoursSpecification": [
+          {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"10:00","closes":"21:00"},
+          {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"10:00","closes":"22:00"},
+          {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"11:00","closes":"22:00"},
+          {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"11:00","closes":"21:00"}
+        ]
+      }
+    </script>
+    <!-- Removed external Google Fonts to rely on self-hosted Open Sans (see index.css). -->
   </head>
-  <body>
+  <body class="fade-in-initial">
+    <a href="#home" class="skip-link">Preskočiť na obsah</a>
     <div id="root"></div>
+    <style>
+      .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;} 
+      .skip-link:focus{left:8px;top:8px;width:auto;height:auto;padding:8px 12px;z-index:10000;background:#000;color:#fff;border-radius:4px;text-decoration:none;font-weight:600;}
+    </style>
     <script type="module" src="/src/main.tsx"></script>
+    <script>/* Remove critical CSS after full styles applied */window.addEventListener('load',()=>{setTimeout(()=>{const c=document.getElementById('critical-css');if(c) c.parentNode?.removeChild(c);},2500);});</script>
   </body>
 </html>
