@@ -1,19 +1,12 @@
-import { useState, useEffect, Suspense, lazy } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import './App.css'
 import Mainhero from './components/Mainhero'
 import Footer from './components/Footer'
 import { PreloadProvider, usePreload } from './hooks/usePreload'
-
-const About = lazy(() => import('./components/About'))
-const Services = lazy(() => import('./components/Services'))
-const Contact = lazy(() => import('./components/Contact'))
-
-const LoadingPlaceholder = () => (
-  <div className="flex items-center justify-center h-screen bg-black">
-    <div className="text-white text-2xl font-bold">Loading...</div>
-  </div>
-)
+import About from './components/About'
+import Services from './components/Services'
+import Contact from './components/Contact'
 
 function AppContent() {
   const { assetsLoaded } = usePreload();
@@ -33,11 +26,9 @@ function AppContent() {
         <section id="home" className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-background to-secondary/30 overflow-hidden">
           <Mainhero />
         </section>
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <About />
-          <Services />
-          <Contact />
-        </Suspense>
+        <About />
+        <Services />
+        <Contact />
       </main>
       <Footer />
     </div>
