@@ -3,22 +3,20 @@ import Navbar from './components/Navbar'
 import './App.css'
 import Mainhero from './components/Mainhero'
 import Footer from './components/Footer'
-import { PreloadProvider, usePreload } from './hooks/usePreload'
+import { PreloadProvider } from './hooks/usePreload'
 import About from './components/About'
 import Services from './components/Services'
 import Contact from './components/Contact'
 
+// Removed fade-in gating to prevent blank screen on desktop.
 function AppContent() {
-  const { assetsLoaded } = usePreload();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   useEffect(() => {
-    if (assetsLoaded) {
-      const timer = setTimeout(() => setIsVisible(true), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [assetsLoaded]);
+    // Keep a minimal fade-in if desired
+    setIsVisible(true);
+  }, []);
   return (
-    <div className={`min-h-screen bg-background text-foreground transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen bg-background text-foreground transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-100'}`}>
       <Navbar />
       <main>
         <section id="home" className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-background to-secondary/30 overflow-hidden">
