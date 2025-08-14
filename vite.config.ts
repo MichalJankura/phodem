@@ -31,8 +31,8 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,ttf,pdf}'], // removed mp4 from precache
-        maximumFileSizeToCacheInBytes: 3000000,
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,ttf,pdf,mp4}'],
+        maximumFileSizeToCacheInBytes: 5000000,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -74,11 +74,11 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: /.*\.(?:mp4|webm|ogg)$/,
-            handler: 'StaleWhileRevalidate',
+            urlPattern: /\.(?:mp4|webm|ogg)$/,
+            handler: 'CacheFirst',
             options: {
-              cacheName: 'videos-runtime',
-              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 7 }
+              cacheName: 'videos',
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 30 }
             }
           }
         ]
