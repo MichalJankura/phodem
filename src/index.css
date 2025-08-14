@@ -84,73 +84,6 @@
   --color-ring: #0D6EFD;
 }
 
-.dark {
-  --color-primary: #0D6EFD;
-  --color-primary-foreground: #FFFFFF;
-  --color-secondary: #1E1E2C;
-  --color-secondary-foreground: #FAFAFB;
-  --color-accent: #6D7074;
-  --color-accent-foreground: #FAFAFB;
-  --color-background: #020817;
-  --color-foreground: #FAFAFB;
-  --color-card: #121212;
-  --color-card-foreground: #FAFAFB;
-  --color-muted: #1E1E2C;
-  --color-muted-foreground: #6D7074;
-  --color-border: #3C3C3C;
-  --color-input: #3C3C3C;
-  --color-ring: #0D6EFD;
-}
-
-html, body, #root {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.App {
-  width: 100vw;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* Custom animations for smooth transitions */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in-scale {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 /* Base styles for all devices - ensure content is visible on mobile */
 .animate-fade-in {
   opacity: 1;
@@ -272,48 +205,6 @@ img {
 /* Contact section custom classes */
 .text-dark {
   color: rgb(31, 41, 55);
-}
-
-.text-body-color {
-  color: rgb(107, 114, 128);
-}
-
-.dark .text-dark {
-  color: rgb(229, 231, 235);
-}
-
-.dark .text-dark-6 {
-  color: rgb(156, 163, 175);
-}
-
-.dark .bg-dark {
-  background-color: rgb(31, 41, 55);
-}
-
-.dark .bg-dark-2 {
-  background-color: rgb(55, 65, 81);
-}
-
-.container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-@media (min-width: 640px) {
-  .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
 }
 
 /* Override primary color for contact section compatibility */

@@ -16,6 +16,9 @@ const isMobileOrTablet = (): boolean => {
   return window.innerWidth < 1024;
 };
 
+// Helper function to detect low-end devices
+const isLowEnd = () => typeof navigator !== 'undefined' && navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+
 export const useScrollAnimation = <T extends HTMLElement>(options: UseScrollAnimationOptions = {}) => {
   const {
     threshold = 0.1,
@@ -44,11 +47,10 @@ export const useScrollAnimation = <T extends HTMLElement>(options: UseScrollAnim
   useEffect(() => {
     const element = elementRef.current;
     if (!element) return;
-    
-    // If mobile/tablet, set visible immediately without animation
-    if (isMobile) {
+
+    if (isMobile || isLowEnd()) {
       setIsVisible(true);
-      return;
+      return; // skip observer entirely on low-end/mobile
     }
 
     const observer = new IntersectionObserver(

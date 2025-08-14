@@ -5,25 +5,25 @@ import pohneBgOpt from '../assets/hero-bg-phone-converted-optimized.webp';
 import { useState, useEffect } from 'react';
 import FirefliesOverlay from "../components/FirefliesOverlay";
 
+const prefersReducedMotion = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isLowEndDevice = () => typeof navigator !== 'undefined' && (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+
 const Mainhero = () => {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const [showFireflies, setShowFireflies] = useState(false);
-  
-  // Load fireflies after background and buttons are ready
+
   useEffect(() => {
-    // Wait for images to load and then delay showing fireflies
-    const timer = setTimeout(() => {
-      setShowFireflies(true);
-    }, 400); // Delay showing fireflies by 400ms after component mount
-    
-    return () => clearTimeout(timer);
+    if (!prefersReducedMotion() && !isLowEndDevice()) {
+      const timer = setTimeout(() => setShowFireflies(true), 600);
+      return () => clearTimeout(timer);
+    }
   }, []);
-  
+
   return (
     <div className="absolute inset-0 flex items-center justify-center" role="banner">
       {/* Responsive background images */}
       <picture className="hidden sm:block w-full h-full">
-        <source srcSet={`${heroBgOpt} 1600w, ${heroBg} 2200w`} sizes="(min-width:1280px) 100vw, 100vw" type="image/webp" />
+        <source srcSet={`${heroBgOpt} 1600w, ${heroBg} 2200w`} sizes="100vw" type="image/webp" />
         <img
           src={heroBgOpt}
           alt="Interiér vietnamskej reštaurácie PHỞ ĐÊM"

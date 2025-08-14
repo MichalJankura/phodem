@@ -54,6 +54,10 @@
       }
     </script>
     <!-- Removed external Google Fonts to rely on self-hosted Open Sans (see index.css). -->
+    <link rel="preload" as="image" href="/src/assets/hero-bg-phone-converted-optimized.webp" media="(max-width:640px)" imagesrcset="/src/assets/hero-bg-phone-converted-optimized.webp 640w, /src/assets/hero-bg-phone-converted.webp 960w" imagesizes="100vw" />
+    <link rel="preload" as="image" href="/src/assets/hero-bg-2-converted-optimized.webp" media="(min-width:641px)" imagesrcset="/src/assets/hero-bg-2-converted-optimized.webp 1600w, /src/assets/hero-bg-2-converted.webp 2200w" imagesizes="100vw" />
+    <!-- Hint browser that rest of document uses vertical scroll only (performance) -->
+    <meta name="supported-color-schemes" content="dark" />
   </head>
   <body class="fade-in-initial">
     <a href="#home" class="skip-link">Preskočiť na obsah</a>
@@ -62,7 +66,16 @@
       .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;} 
       .skip-link:focus{left:8px;top:8px;width:auto;height:auto;padding:8px 12px;z-index:10000;background:#000;color:#fff;border-radius:4px;text-decoration:none;font-weight:600;}
     </style>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      // Delay main bundle hydration slightly on mobile low-power devices
+      const start = () => import('/src/main.tsx');
+      if (navigator.connection && (navigator.connection.saveData || navigator.connection.effectiveType.includes('2g'))) {
+        requestIdleCallback(start, { timeout: 1500 });
+      } else {
+        start();
+      }
+    </script>
+    <!-- Removed direct script tag to allow conditional hydration -->
     <script>/* Remove critical CSS after full styles applied */window.addEventListener('load',()=>{setTimeout(()=>{const c=document.getElementById('critical-css');if(c) c.parentNode?.removeChild(c);},2500);});</script>
   </body>
 </html>
