@@ -31,7 +31,11 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,ttf,pdf,mp4}'],
+        // SW fix additions
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,ttf,pdf}'], // removed mp4 to avoid huge precache
         maximumFileSizeToCacheInBytes: 5000000,
         runtimeCaching: [
           {
@@ -39,13 +43,8 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] }
             }
           },
           {
@@ -53,13 +52,8 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'gstatic-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
+              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] }
             }
           },
           {
@@ -67,20 +61,10 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: {
               cacheName: 'images',
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
-          },
-          {
-            urlPattern: /\.(?:mp4|webm|ogg)$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'videos',
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 30 }
+              expiration: { maxEntries: 50, maxAgeSeconds: 60 * 60 * 24 * 30 }
             }
           }
+          // video runtime caching removed to prevent stale large asset & blocking updates
         ]
       }
     }),
@@ -100,7 +84,7 @@ export default defineConfig({
           if (/\.(mp4|webm|ogg)$/i.test(name)) {
             return `assets/video/[name]-[hash][extname]`;
           }
-          if (/\.(ttf|otf|woff|woff2)$/i.test(name)) {
+            if (/\.(ttf|otf|woff|woff2)$/i.test(name)) {
             return `assets/fonts/[name]-[hash][extname]`;
           }
           return `assets/[name]-[hash][extname]`;
