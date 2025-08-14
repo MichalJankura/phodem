@@ -140,28 +140,6 @@ html, body, #root {
   }
 }
 
-@keyframes fade-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fade-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 @keyframes fade-in-scale {
   from {
     opacity: 0;
@@ -173,53 +151,12 @@ html, body, #root {
   }
 }
 
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes delayed-fade-in {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes bounce-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 /* Base styles for all devices - ensure content is visible on mobile */
 .animate-fade-in {
   opacity: 1;
 }
 
 .animate-fade-in-up,
-.animate-fade-in-left,
-.animate-fade-in-right,
 .animate-fade-in-scale {
   opacity: 1;
 }
@@ -235,48 +172,9 @@ html, body, #root {
     animation: fade-in-up 0.8s ease-out forwards;
   }
 
-  .animate-fade-in-left {
-    opacity: 0;
-    animation: fade-in-left 0.8s ease-out forwards;
-  }
-
-  .animate-fade-in-right {
-    opacity: 0;
-    animation: fade-in-right 0.8s ease-out forwards;
-  }
-
   .animate-fade-in-scale {
     opacity: 0;
     animation: fade-in-scale 0.8s ease-out forwards;
-  }
-}
-
-.animate-delayed-fade-in {
-  opacity: 1;
-}
-
-.animate-slide-up {
-  opacity: 1; /* Default visible state */
-}
-
-.animate-bounce-in {
-  opacity: 1;
-}
-
-/* Different animation rules for desktop */
-@media (min-width: 1024px) {
-  .animate-delayed-fade-in {
-    opacity: 0;
-    animation: delayed-fade-in 1.2s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slide-up 0.8s ease-out;
-  }
-
-  .animate-bounce-in {
-    opacity: 0;
-    animation: bounce-in 0.8s ease-out forwards;
   }
 }
 
@@ -354,28 +252,6 @@ html {
 img {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: optimize-contrast;
-}
-
-/* Additional optimizations for coffee section */
-.coffee-card {
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  perspective: 1000px;
-}
-
-.coffee-scroll-container {
-  overflow: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.coffee-scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-.coffee-card-item {
-  scroll-snap-align: start;
-  flex: 0 0 auto;
 }
 
 /* Optimize transitions */

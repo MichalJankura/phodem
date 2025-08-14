@@ -1,5 +1,7 @@
 import heroBg from '../assets/hero-bg-2-converted.webp';
+import heroBgOpt from '../assets/hero-bg-2-converted-optimized.webp';
 import pohneBg from '../assets/hero-bg-phone-converted.webp';
+import pohneBgOpt from '../assets/hero-bg-phone-converted-optimized.webp';
 import { useState, useEffect } from 'react';
 import FirefliesOverlay from "../components/FirefliesOverlay";
 
@@ -19,25 +21,31 @@ const Mainhero = () => {
   
   return (
     <div className="absolute inset-0 flex items-center justify-center" role="banner">
-      {/* Decorative background images */}
-      <img
-        src={heroBg}
-        alt="Interiér vietnamskej reštaurácie PHỞ ĐÊM"
-        className="hidden sm:block w-full h-full object-cover object-center"
-        width={1920}
-        height={1080}
-        loading="eager"
-        fetchPriority="high"
-      />
-      <img
-        src={pohneBg}
-        alt="Interiér PHỞ ĐÊM pre mobilné zariadenia"
-        className="block sm:hidden w-full h-full object-cover object-center"
-        width={800}
-        height={1200}
-        loading="eager"
-        fetchPriority="high"
-      />
+      {/* Responsive background images */}
+      <picture className="hidden sm:block w-full h-full">
+        <source srcSet={`${heroBgOpt} 1600w, ${heroBg} 2200w`} sizes="(min-width:1280px) 100vw, 100vw" type="image/webp" />
+        <img
+          src={heroBgOpt}
+          alt="Interiér vietnamskej reštaurácie PHỞ ĐÊM"
+          className="w-full h-full object-cover object-center"
+          width={1920}
+          height={1080}
+          loading="eager"
+          fetchPriority="high"
+        />
+      </picture>
+      <picture className="block sm:hidden w-full h-full">
+        <source srcSet={`${pohneBgOpt} 640w, ${pohneBg} 960w`} sizes="100vw" type="image/webp" />
+        <img
+          src={pohneBgOpt}
+          alt="Interiér PHỞ ĐÊM pre mobilné zariadenia"
+          className="w-full h-full object-cover object-center"
+          width={800}
+          height={1200}
+          loading="eager"
+          fetchPriority="high"
+        />
+      </picture>
       <div className="sr-only">
         <h1>PHỞ ĐÊM – Vietnamská & Ázijská reštaurácia v Starej Ľubovni</h1>
       </div>
