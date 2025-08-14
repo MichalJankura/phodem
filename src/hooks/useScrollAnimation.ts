@@ -48,17 +48,22 @@ export const useScrollAnimation = <T extends HTMLElement>(options: UseScrollAnim
     const element = elementRef.current;
     if (!element) return;
 
-    if (isMobile || isLowEnd()) {
+    const markVisible = () => {
+      if (!element.classList.contains('visible')) element.classList.add('visible');
+      if (animationClass && !element.classList.contains(animationClass)) element.classList.add(animationClass);
       setIsVisible(true);
-      return; // skip observer entirely on low-end/mobile
+    };
+
+    if (isMobile || isLowEnd()) {
+      markVisible();
+      return; // skip observer on mobile / low-end
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
-            setIsVisible(true);
-            element.classList.add(animationClass);
+            markVisible();
           }, delay);
           observer.unobserve(element);
         }
